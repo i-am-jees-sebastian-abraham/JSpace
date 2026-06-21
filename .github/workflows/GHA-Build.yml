@@ -25,5 +25,5 @@ jobs:
 
     - name: Run tests
       run: |
-        cd src
+        cd ci
         python -m pytest Add.py
