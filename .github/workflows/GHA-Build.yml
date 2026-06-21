@@ -4,7 +4,7 @@ name: All in One Program
 on: [push, workflow_dispatch]
 
 jobs:
-  final:
+  init:
     runs-on: ubuntu-latest
     
     steps:
