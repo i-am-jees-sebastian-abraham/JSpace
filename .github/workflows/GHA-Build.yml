@@ -4,13 +4,6 @@ name: All in One Program
 on: [push, workflow_dispatch]
 
 jobs:
-  init:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Initial Stage
-        run : echo "Task Started"
-
   build:
     runs-on: ubuntu-latest
 
@@ -35,9 +28,3 @@ jobs:
         cd ci
         python -m pytest Add.py
         
-  final:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Final Stage
-        run : echo "Task Completed"
