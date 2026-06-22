@@ -35,12 +35,15 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./Terraform
 
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Plan
         run: terraform plan -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        working-directory: ./Terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        working-directory: ./Terraform
