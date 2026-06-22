@@ -14,33 +14,33 @@ jobs:
         run: |
           echo "Running Initialize"
 
-  jobs:
-    build_scan:
-      build:
-        runs-on: ubuntu-latest
-        needs: init
+  build:
+    runs-on: ubuntu-latest
+    needs: init
 
-        steps:
-          - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-          - name: Build
-            run: |
-              echo "Running Build"
+      - name: Build
+        run: |
+          echo "Running Build"
 
-      scan:
-        runs-on: ubuntu-latest
-        needs: build
+  scan:
+    runs-on: ubuntu-latest
+    needs: build
 
-        steps:
-          - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-          - name: Scan
-            run: |
-              echo "Running Scan"
+      - name: Scan
+        run: |
+          echo "Running Scan"
 
   artifactory:
     runs-on: ubuntu-latest
-    needs: scan
+    needs: 
+      - build
+      - scan
 
     steps:
       - uses: actions/checkout@v4
