@@ -28,7 +28,8 @@ resource "azurerm_public_ip" "my_terraform_public_ip" {
   name                = "myPublicIP"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
+  sku				  = "Basic"
 }
 
 # Create Network Security Group and rule
@@ -115,7 +116,7 @@ resource "azurerm_linux_virtual_machine" "jworkspace" {
 
   admin_ssh_key {
     username   = var.username
-    public_key = azapi_resource_action.ssh_public_key_gen.output.publicKey
+	public_key = file("~/.ssh/id_rsa.pub")
   }
 
   boot_diagnostics {
