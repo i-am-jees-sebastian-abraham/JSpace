@@ -27,7 +27,7 @@ jobs:
 
   scan:
     runs-on: ubuntu-latest
-    needs: build
+    needs: init
 
     steps:
       - uses: actions/checkout@v4
