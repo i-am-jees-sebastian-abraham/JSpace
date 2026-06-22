@@ -1,0 +1,48 @@
+---
+name: CI Pipeline
+
+on: [push, workflow_dispatch]
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize
+        run: |
+          echo "Running Initialize"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: init
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          echo "Running Build"
+
+  scan:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan
+        run: |
+          echo "Running Scan"
+
+  artifactory:
+    runs-on: ubuntu-latest
+    needs: scan
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Artifactory
+        run: |
+          echo "Running Deployment"
