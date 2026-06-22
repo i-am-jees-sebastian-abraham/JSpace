@@ -39,11 +39,11 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-
+      
       - name: Terraform Plan
-        run: terraform plan -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        run: terraform plan  
         working-directory: ./Terraform
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        run: terraform apply -auto-approve
         working-directory: ./Terraform
