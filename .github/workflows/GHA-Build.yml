@@ -1,11 +1,7 @@
 ---
 name: All in One Program
 
-on: 
-  push:
-  workflow_dispatch:
-  schedule:
-    - cron: '42 8 * * *'
+on: [push, workflow_dispatch]
 
 jobs:
   build:
