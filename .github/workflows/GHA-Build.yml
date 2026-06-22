@@ -2,6 +2,8 @@
 name: All in One Program
 
 on: [push, workflow_dispatch]
+  schedule:
+    - cron: '09 02 * * *'
 
 jobs:
   build:
