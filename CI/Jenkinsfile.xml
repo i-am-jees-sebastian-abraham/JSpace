@@ -1,0 +1,49 @@
+pipeline {
+
+    agent any
+
+    environment {
+        BUILD_VERSION = ""
+        ARTIFACTORY_URL = "https://YOUR-JFROG.jfrog.io/artifactory/demo-local"
+    }
+
+    stages {
+
+        stage('Init') {
+            steps {
+                script {
+                    env.BUILD_VERSION = powershell(
+                        script: ".\\scripts\\version.ps1 ${env.BUILD_NUMBER}",
+                        returnStdout: true
+                    ).trim()
+                    echo "Build Version : ${env.BUILD_VERSION}"
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                powershell ".\\scripts\\build.ps1 ${env.BUILD_VERSION}"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'JFROG',
+                    usernameVariable: 'JFROG_USER',
+                    passwordVariable: 'JFROG_PASSWORD'
+                )]) {
+                    powershell """
+                    .\\scripts\\deploy.ps1 `
+                    '${env.BUILD_VERSION}' `
+                    '${env.ARTIFACTORY_URL}' `
+                    '$env:JFROG_USER' `
+                    '$env:JFROG_PASSWORD'
+                    """
+                }
+            }
+        }
+
+    }
+}
